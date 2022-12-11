@@ -10,12 +10,13 @@ import gym
 from gym import Env, spaces
 
 #### COLORS (BGR) ####
-BLUE=  [255, 0,   0]
-GREEN= [0,   255, 0]
-RED=   [0,   0,   255]
-WHITE= [255, 255, 255]
-GREY=  [240, 240, 240]
-BLACK= [0,   0,   0]
+BLUE  = [255,   0,   0]
+GREEN = [0,   255,   0]
+RED   = [0,     0, 255]
+WHITE = [255, 255, 255]
+GREY  = [240, 240, 240]
+BLACK = [0,     0,   0]
+CYAN  = [255, 255,   0]
 #### BUILDINGS #######
 WASTELAND = 0
 OFFICE    = 1
@@ -441,6 +442,21 @@ class City(Env):
         self.__draw_player_position()
         self.__draw_area_position()
         pass
+    
+    def to_image(self):
+        image = np.ones((self.mapshape[0], self.mapshape[1], 3), dtype = np.uint8) * 0
+        
+        for y in range(len(self.map)):
+            for x in range(len(self.map[0])):
+                color = WHITE
+                
+                if   self.map[y, x] == OFFICE : color = BLUE
+                elif self.map[y, x] == HOUSE  : color = RED
+                elif self.map[y, x] == PARK   : color = GREEN
+                elif self.map[y, x] == COM    : color = CYAN
+                
+                image[y, x] = color
+        return image
     
     def render(self, mode = "console"):
         if mode == "human" :

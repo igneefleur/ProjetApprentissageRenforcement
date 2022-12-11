@@ -4,5 +4,6 @@ __pycache__/
 # notebook checkpoints
 .ipynb_checkpoints/
 
-# all data save as txt
+# all data save as txt and zip
 *.txt
+*.zip
